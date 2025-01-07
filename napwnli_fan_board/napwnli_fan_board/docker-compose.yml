@@ -1,0 +1,24 @@
+version: '3'
+services:
+
+  frontend:
+    build:
+      context: ./flask
+      dockerfile: Dockerfile
+    ports:
+      - 5000:5000
+    volumes:
+      - ./flask/app:/app
+    depends_on:
+      - db
+
+  db:
+    image: mysql:latest
+    environment:
+      - MYSQL_ROOT_PASSWORD=napwnli
+      - MYSQL_DATABASE=napwnli_fan_board
+      - MYSQL_USER=napwnli
+      - MYSQL_PASSWORD=napwnli_random_secure_password
+    volumes:
+      - ./mysql/data:/var/lib/mysql
+      - ./mysql/init.sql:/docker-entrypoint-initdb.d/init.sql
