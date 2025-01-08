@@ -1,0 +1,56 @@
+admin:
+  password: d68534a816ca1b10
+  username: forcad
+game:
+  checkers_path: /checkers/
+  default_score: 2500.0
+  env_path: ''
+  flag_lifetime: 5
+  game_hardness: 10.0
+  inflation: true
+  mode: classic
+  round_time: 20
+  start_time: 2025-01-03 16:07:00
+  timezone: Europe/Rome
+storages:
+  db:
+    dbname: forcad
+    host: postgres
+    password: d68534a816ca1b10
+    port: 5432
+    user: forcad
+  rabbitmq:
+    host: rabbitmq
+    password: d68534a816ca1b10
+    port: 5672
+    user: forcad
+    vhost: forcad
+  redis:
+    db: 0
+    host: redis
+    password: d68534a816ca1b10
+    port: 6379
+tasks:
+- checker: napwnli_fan_board/checker.py
+  checker_timeout: 10
+  checker_type: pfr
+  gets: 1
+  name: NapwnliFanBoard
+  places: 1
+  puts: 1
+teams:
+- highlighted: false
+  ip: 11.0.1.1
+  name: Team Maradona
+- highlighted: false
+  ip: 11.0.2.1
+  name: Team Pocho
+- highlighted: false
+  ip: 11.0.3.1
+  name: Team Pampa Sosa
+- highlighted: false
+  ip: 11.0.4.1
+  name: Team Osimhen
+- highlighted: false
+  ip: 11.0.0.1
+  name: NOP Team

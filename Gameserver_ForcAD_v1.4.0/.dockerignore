@@ -1,0 +1,11 @@
+.DS_Store
+.idea
+
+/front/node_modules
+
+/control.py
+/README.md
+.mypy_cache
+/cli
+/docker_volumes
+/deploy

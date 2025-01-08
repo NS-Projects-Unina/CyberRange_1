@@ -1,0 +1,145 @@
+services:
+  admin-api:
+    build: &id001
+      context: .
+      dockerfile: ./docker_config/services/Dockerfile
+    env_file:
+    - ./docker_config/services/admin.env
+    - ./docker_config/postgres_environment.env
+    - ./docker_config/redis_environment.env
+    - ./docker_config/rabbitmq_environment.env
+    environment:
+    - TEST
+    - SERVICE=admin
+    restart: on-failure
+  celery:
+    build: &id003
+      context: .
+      dockerfile: ./docker_config/celery/Dockerfile
+    env_file: &id002
+    - ./docker_config/postgres_environment.env
+    - ./docker_config/redis_environment.env
+    - ./docker_config/rabbitmq_environment.env
+    environment:
+    - TEST
+    - SERVICE=worker
+    restart: on-failure
+    volumes: &id004
+    - ./checkers/:/checkers/
+  client-api:
+    build: *id001
+    env_file: *id002
+    environment:
+    - TEST
+    - SERVICE=api
+    restart: on-failure
+  events:
+    build: *id001
+    env_file: *id002
+    environment:
+    - TEST
+    - SERVICE=events
+    restart: on-failure
+  flower:
+    build: *id003
+    env_file:
+    - ./docker_config/services/admin.env
+    - ./docker_config/postgres_environment.env
+    - ./docker_config/redis_environment.env
+    - ./docker_config/rabbitmq_environment.env
+    environment:
+    - TEST
+    - SERVICE=flower
+    restart: on-failure
+    volumes: *id004
+  http-receiver:
+    build: *id001
+    env_file: *id002
+    environment:
+    - TEST
+    - SERVICE=http_receiver
+    restart: on-failure
+  initializer:
+    build:
+      context: .
+      dockerfile: ./docker_config/initializer/Dockerfile
+    env_file: *id002
+    environment:
+    - TEST
+    - CONFIG_PATH=/config.yml
+    restart: on-failure
+    volumes:
+    - ./config.yml:/config.yml:ro
+  monitoring:
+    build: *id001
+    env_file: *id002
+    environment:
+    - TEST
+    - SERVICE=monitoring
+    restart: on-failure
+  nginx:
+    build:
+      args:
+        DNS_RESOLVER: 127.0.0.11
+      context: .
+      dockerfile: ./docker_config/nginx/Dockerfile
+    depends_on:
+    - flower
+    - client-api
+    - admin-api
+    - events
+    - monitoring
+    - http-receiver
+    ports:
+    - 8080:80
+    - 80:80
+    restart: on-failure
+  postgres:
+    env_file:
+    - ./docker_config/postgres_environment.env
+    image: postgres:13.4-alpine
+    ports:
+    - 5432:5432
+    - 6432:5432
+    restart: on-failure
+    volumes:
+    - ./docker_volumes/postgres/data/:/var/lib/postgresql/data/
+  rabbitmq:
+    env_file:
+    - ./docker_config/rabbitmq_environment.env
+    hostname: rabbitmq
+    image: rabbitmq:3.9.7-management-alpine
+    ports:
+    - 5672:5672
+    - 15672:15672
+    restart: on-failure
+  redis:
+    command:
+    - sh
+    - -c
+    - redis-server --requirepass $$REDIS_PASSWORD
+    env_file:
+    - ./docker_config/redis_environment.env
+    image: redis:6.2.5-alpine
+    ports:
+    - 6379:6379
+    restart: on-failure
+    sysctls:
+      net.core.somaxconn: 1024
+  ticker:
+    build: *id001
+    env_file: *id002
+    environment:
+    - TEST
+    - SERVICE=ticker
+    restart: on-failure
+version: '2.4'
+x-celery-service:
+  build: *id003
+  env_file: *id002
+  restart: on-failure
+  volumes: *id004
+x-service:
+  build: *id001
+  env_file: *id002
+  restart: on-failure
