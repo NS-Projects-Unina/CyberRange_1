@@ -61,14 +61,14 @@ docker compose up --build -d
 
 ### Sistema di Punteggio
 
-I punti vengono assegnati in base a tre criteri:
+I punti vengono assegnati in base a tre criteri: \
 	1.	Invio di flag rubate: Tramite il servizio di flag submission. \
 	2.	Difesa delle proprie flag: Impedendo agli avversari di catturarle. \
-	3.	Punti SLA (Service Level Agreement): Per ogni servizio attivo e funzionante. \
+	3.	Punti SLA (Service Level Agreement): Per ogni servizio attivo e funzionante. 
 
 Dettagli Tecnici
-	•	Firewall: Configurato tramite OPNsense, con regole specifiche per abilitare l’accesso VPN e prevenire blocchi non autorizzati.
-	•	Overlay Network: Implementata con WireGuard per la comunicazione tra le VM.
+	•	Firewall: Configurato tramite OPNsense, con regole specifiche per abilitare l’accesso VPN e prevenire blocchi non autorizzati. \
+	•	Overlay Network: Implementata con WireGuard per la comunicazione tra le VM. \
 	•	Checker: Garantisce l’integrità dei servizi e aggiorna il punteggio in base allo stato dei servizi e alle flag catturate.
 
 ### Crediti
