@@ -39,12 +39,12 @@ Questa infrastruttura è stata progettata e implementata per gestire competizion
 Eseguire i seguenti comandi per avviare i servizi vulnerabili:
 ```bash
 docker compose up --build -d
-
 ```
 
 ### Configurazione e Avvio del Gameserver:
-	1.	Modificare il file config.yml per impostare i parametri della competizione.
-	2.	Eseguire i seguenti comandi:
+
+1.	Modificare il file config.yml per impostare i parametri della competizione.
+2.	Eseguire i seguenti comandi:
 
 
 ```bash
@@ -53,7 +53,7 @@ docker compose up --build -d
 ```
 
 
-	3.	Al termine della gara, ripristinare lo stato iniziale con:
+3.	Al termine della gara, ripristinare lo stato iniziale con:
 ```bash
 ./control.py reset
 ```
