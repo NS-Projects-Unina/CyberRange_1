@@ -66,18 +66,18 @@ I punti vengono assegnati in base a tre criteri: \
 	2.	Difesa delle proprie flag: Impedendo agli avversari di catturarle. \
 	3.	Punti SLA (Service Level Agreement): Per ogni servizio attivo e funzionante. 
 
-Dettagli Tecnici
+Dettagli Tecnici \
 	•	Firewall: Configurato tramite OPNsense, con regole specifiche per abilitare l’accesso VPN e prevenire blocchi non autorizzati. \
 	•	Overlay Network: Implementata con WireGuard per la comunicazione tra le VM. \
 	•	Checker: Garantisce l’integrità dei servizi e aggiorna il punteggio in base allo stato dei servizi e alle flag catturate.
 
 ### Crediti
 
-Progetto sviluppato da:
-	•	Francesco Balassone
+Progetto sviluppato da: \
+	•	Francesco Balassone \
 	•	Francesco Riccio
 
-Con il supporto di:
+Con il supporto di: 
 	•	Sofia Della Penna, Raffaele D’Ambrosio, Alessio Foggia
 
 Sponsor:
